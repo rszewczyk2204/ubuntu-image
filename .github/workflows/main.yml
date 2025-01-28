@@ -14,8 +14,12 @@ jobs:
 
       - name: Login to docker hub
         shell: bash
+        env:
+          DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
+          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          DOCKER_HUB_REPOSITORY: ${{ secrets.DOCKER_HUB_REPOSITORY }}
         run: |
-          docker login -u ${{ env.DOCKER_HUB_LOGIN }} -p ${{ env.DOCKER_HUB_PASSWORD }} ${{ env.DOCKER_HUB_REPOSITORY }}
+          docker login -u $DOCKER_HUB_LOGIN -p $DOCKER_HUB_PASSWORD $DOCKER_HUB_REPOSITORY
 
       - name: Create docker image
         shell: bash
