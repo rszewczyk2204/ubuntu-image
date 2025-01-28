@@ -12,6 +12,11 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v3
 
+      - name: Login to docker hub
+        shell: bash
+        run: |
+          docker login -u ${{ env.DOCKER_HUB_LOGIN }} -p ${{ env.DOCKER_HUB_PASSWORD }} ${{ env.DOCKER_HUB_REPOSITORY }}
+
       - name: Create docker image
         shell: bash
         run: |
@@ -26,3 +31,8 @@ jobs:
         shell: bash
         run: |
           docker rmi -f ryszardszewczyk/ubuntu:1
+
+      - name: Logout from docker hub
+        shell: bash
+        run: |
+          docker logout
